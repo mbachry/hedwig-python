@@ -1,5 +1,6 @@
 import os
 
+
 # to test callables in HEDWIG_CALLBACKS
 def device_handler(message):
     pass
