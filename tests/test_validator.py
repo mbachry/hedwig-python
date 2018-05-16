@@ -97,10 +97,10 @@ class TestMessageValidator:
 
     def test_validate_raises_error_invalid_schema(self):
         with pytest.raises(ValidationError):
-            MessageFactory(schema='mickey-mouse')
+            MessageFactory(schema='https://wrong.host/schema#/schemas/trip_created/1.0')
 
         with pytest.raises(ValidationError):
-            MessageFactory(schema='https://hedwig.automatic.com/schema#/schemas/mickey-mouse/1.0')
+            MessageFactory(schema='https://hedwig.automatic.com/schema#/schemas/trip_created/9.0')
 
     def test_validate_raises_errors(self):
         with pytest.raises(ValidationError):
