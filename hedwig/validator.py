@@ -12,7 +12,7 @@ from hedwig.conf import settings
 from hedwig.exceptions import ValidationError
 
 if typing.TYPE_CHECKING:
-    from hedwig.models import Message  # noqa
+    from hedwig.models import Message  # noqa  # pragma: no cover
 
 
 class MessageValidator(Draft4Validator):
