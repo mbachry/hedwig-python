@@ -44,7 +44,6 @@ def log_invalid_message(message_json: str) -> None:
 
 def _load_and_validate_message(data: dict) -> Message:
     message = Message(data)
-    message.validate()
     message.validate_callback()
 
     return message
@@ -104,8 +103,8 @@ def get_queue(queue_name: str):
     return sqs.get_queue_by_name(QueueName=queue_name)
 
 
-def get_queue_messages(queue, num_messages: int, wait_timeout_s: typing.Optional[int] = None,
-                       visibility_timeout: typing.Optional[int] = None) -> list:
+def get_queue_messages(queue, num_messages: int, wait_timeout_s: int = None,
+                       visibility_timeout: int = None) -> list:
     params = {
         'MaxNumberOfMessages': num_messages,
         'WaitTimeSeconds': wait_timeout_s or WAIT_TIME_SECONDS,
@@ -117,7 +116,7 @@ def get_queue_messages(queue, num_messages: int, wait_timeout_s: typing.Optional
 
 
 def fetch_and_process_messages(
-        queue_name: str, queue, num_messages: int = 1, visibility_timeout: typing.Optional[int] = None) -> None:
+        queue_name: str, queue, num_messages: int = 1, visibility_timeout: int = None) -> None:
 
     for queue_message in get_queue_messages(queue, num_messages=num_messages, visibility_timeout=visibility_timeout):
         settings.HEDWIG_PRE_PROCESS_HOOK(sqs_queue_message=queue_message)
@@ -141,8 +140,8 @@ def process_messages_for_lambda_consumer(lambda_event: dict) -> None:
 
 
 def listen_for_messages(
-        num_messages: int = 10, visibility_timeout_s: typing.Optional[int] = None,
-        loop_count: typing.Optional[int] = None) -> None:
+        num_messages: int = 10, visibility_timeout_s: int = None,
+        loop_count: int = None) -> None:
     """
     Starts a Hedwig listener for message types provided and calls the callback handlers like so:
 
