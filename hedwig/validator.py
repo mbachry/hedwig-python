@@ -25,7 +25,7 @@ class MessageValidator(Draft4Validator):
     `HEDWIG_DATA_VALIDATOR_CLASS` and defining more format checkers.
     """
 
-    def __init__(self, schema: dict=None) -> None:
+    def __init__(self, schema: typing.Optional[dict] = None) -> None:
         if schema is None:
             # automatically load schema
             schema_filepath = settings.HEDWIG_SCHEMA_FILE
