@@ -44,7 +44,7 @@ class MessageValidator(Draft4Validator):
         Validates a message using JSON Schema
         """
         if not message.schema.startswith(self.schema_root):
-            raise ValidationError
+            raise ValidationError(f'message schema must start with "{self.schema_root}"')
 
         full_version = StrictVersion(message.schema.split('/')[-1])
         major_version = full_version.version[0]
@@ -53,7 +53,7 @@ class MessageValidator(Draft4Validator):
         try:
             _, schema = self.resolver.resolve(schema_ptr)
         except RefResolutionError:
-            raise ValidationError
+            raise ValidationError('definition not found in schema')
 
         errors = list(self.iter_errors(message.data, schema))
         if errors:
