@@ -14,9 +14,9 @@ from hedwig.exceptions import ValidationError
 
 class MessageValidator(Draft4Validator):
     # uuid separated by hyphens:
-    _human_uuid_re = re.compile("^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$")
+    _human_uuid_re = re.compile(r"^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$")
 
-    _version_pattern_re = re.compile("^[0-9]+\.\*$")
+    _version_pattern_re = re.compile(r"^[0-9]+\.\*$")
 
     checker = FormatChecker()
     """
